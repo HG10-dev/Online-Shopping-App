@@ -1,0 +1,63 @@
+﻿using Authorization_Microservice.Models;
+using Authorization_Microservice.Repositories;
+using Authorization_Microservice.Services;
+using DnsClient;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Authorization_Microservice.Controllers
+{
+    [Route("api/[controller]/")]
+    [ApiController]
+    public class AuthenticateController : ControllerBase
+    {
+        private readonly IAuthRepo authRepo;
+        private readonly IAuthService authService;
+
+        public AuthenticateController(IAuthRepo authRepo, IAuthService authService) 
+        {
+            this.authRepo = authRepo;
+            this.authService = authService;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login([FromBody] AuthCredentials login)
+        {
+            if (login == null)
+            {
+                return BadRequest("!Invalid Credentials.");
+            }
+
+            IActionResult response = Unauthorized();
+
+            AuthCredentials user = await authService.GetAuthCredentialsAsync(login.Username, login.Password);
+
+            if (user != null)
+            {
+                try
+                {
+                    string token = authRepo.GenerateJWT(user);
+                    return Ok(token);
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(500, "  My Bad...Sorry:| \n"+ex.Message);
+                }
+            }
+            return response;
+
+        }
+
+        [Authorize(Roles = "Admin")]
+        [Route("Post")]
+        public async Task<IActionResult> Post([FromBody] AuthCredentials login)
+        {
+            try
+            {
+                AuthCredentials user = await authService.GetAuthCredentialsAsync(login.Username, login.Password);
+                return Ok(user);
+            }catch(Exception ex) { return  StatusCode(500, ex.Message); }
+        }
+    }
+}
