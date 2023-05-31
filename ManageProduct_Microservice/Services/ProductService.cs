@@ -32,7 +32,8 @@ namespace ManageProduct_Microservice.Services
 
         public async Task RemoveAsync(string id)
         {
-            await products.DeleteOneAsync(id);
+            FilterDefinition<Product> filter = Builders<Product>.Filter.Eq("Id", id);
+            await products.DeleteOneAsync(filter);
         }
 
         public async Task UpdateAsync(string id, Product product)
