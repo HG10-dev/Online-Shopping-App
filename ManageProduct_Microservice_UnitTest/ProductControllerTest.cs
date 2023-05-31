@@ -40,12 +40,12 @@ namespace ManageProduct_Microservice_UnitTest
         }
 
         [Test]
-        public async Task GetByIdReturnsItem()
+        public async Task GetByNameReturnsItem()
         {
             Mock<IProductService> mockService = new Mock<IProductService>();
-            mockService.Setup(s => s.GetByIdAsync(It.IsAny<string>())).ReturnsAsync(new Product());
+            mockService.Setup(s => s.GetByNameAsync(It.IsAny<string>())).ReturnsAsync(new Product());
             controller = new ProductsController(mockService.Object);
-            var output = await controller.Get("Id");
+            var output = await controller.Get("Name");
             ObjectResult result = output as ObjectResult;
             Assert.That(result.StatusCode, Is.EqualTo(200));
         }
@@ -54,7 +54,7 @@ namespace ManageProduct_Microservice_UnitTest
         public async Task GetByIdReturnsNotFound()
         {
             Mock<IProductService> mockService = new Mock<IProductService>();
-            mockService.Setup(s => s.GetByIdAsync(It.IsAny<string>())).ReturnsAsync(value: null);
+            mockService.Setup(s => s.GetByNameAsync(It.IsAny<string>())).ReturnsAsync(value: null);
             controller = new ProductsController(mockService.Object);
             var output = await controller.Get("Id");
             NotFoundResult result = output as NotFoundResult;
@@ -65,7 +65,7 @@ namespace ManageProduct_Microservice_UnitTest
         public async Task GetByIdReturnsBadRequest()
         {
             Mock<IProductService> mockService = new Mock<IProductService>();
-            mockService.Setup(s => s.GetByIdAsync(It.IsAny<string>())).ReturnsAsync(items.FirstOrDefault());
+            mockService.Setup(s => s.GetByNameAsync(It.IsAny<string>())).ReturnsAsync(items.FirstOrDefault());
             controller = new ProductsController(mockService.Object);
             var output = await controller.Get(null);
             BadRequestResult result = output as BadRequestResult;
@@ -76,7 +76,7 @@ namespace ManageProduct_Microservice_UnitTest
         public async Task GetByIdReturnsInternalEror()
         {
             Mock<IProductService> mockService = new Mock<IProductService>();
-            mockService.Setup(s => s.GetByIdAsync(It.IsAny<string>())).ThrowsAsync(new Exception());
+            mockService.Setup(s => s.GetByNameAsync(It.IsAny<string>())).ThrowsAsync(new Exception());
             controller = new ProductsController(mockService.Object);
             var output = await controller.Get("Id");
             ObjectResult result = output as ObjectResult;
@@ -95,9 +95,23 @@ namespace ManageProduct_Microservice_UnitTest
         }
 
         [Test]
-        public async Task PostCreatesItemRecord()
+        public async Task PostBadRequestForExistingProduct()
         {
             Mock<IProductService> mockService = new Mock<IProductService>();
+            mockService.Setup(s => s.GetByNameAsync(It.IsAny<string>())).ReturnsAsync(new Product());
+            mockService.Setup(s => s.CreateAsync(It.IsAny<Product>())).Verifiable();
+            controller = new ProductsController(mockService.Object);
+            var output = await controller.Post(new Product());
+            ObjectResult result = output as ObjectResult;
+            Assert.That(result.StatusCode, Is.EqualTo(400));
+        }
+
+        [Test]
+        public async Task PostCreatesItemRecord()
+        {
+            p = null;
+            Mock<IProductService> mockService = new Mock<IProductService>();
+            mockService.Setup(s => s.GetByNameAsync(It.IsAny<string>())).ReturnsAsync(p);
             mockService.Setup(s => s.CreateAsync(It.IsAny<Product>())).Verifiable();
             controller = new ProductsController(mockService.Object);
             var output = await controller.Post(new Product());
@@ -108,7 +122,9 @@ namespace ManageProduct_Microservice_UnitTest
         [Test]
         public async Task PostReturnsInternalError()
         {
+            p = null;
             Mock<IProductService> mockService = new Mock<IProductService>();
+            mockService.Setup(s => s.GetByNameAsync(It.IsAny<string>())).ReturnsAsync(p);
             mockService.Setup(s => s.CreateAsync(It.IsAny<Product>())).ThrowsAsync(new Exception());
             controller = new ProductsController(mockService.Object);
             var output = await controller.Post(new Product());
@@ -173,7 +189,7 @@ namespace ManageProduct_Microservice_UnitTest
         public async Task DeleteReturnsNotFound()
         {
             Mock<IProductService> mockService = new Mock<IProductService>();
-            mockService.Setup(s => s.GetByIdAsync(It.IsAny<string>())).ReturnsAsync(value: null);
+            mockService.Setup(s => s.GetByNameAsync(It.IsAny<string>())).ReturnsAsync(value: null);
             controller = new ProductsController(mockService.Object);
             var output = await controller.Delete("id");
             NotFoundResult result = output as NotFoundResult;
@@ -184,7 +200,7 @@ namespace ManageProduct_Microservice_UnitTest
         public async Task DeleteSuccessful()
         {
             Mock<IProductService> mockService = new Mock<IProductService>();
-            mockService.Setup(s => s.GetByIdAsync(It.IsAny<string>())).ReturnsAsync(new Product());
+            mockService.Setup(s => s.GetByNameAsync(It.IsAny<string>())).ReturnsAsync(new Product());
             controller = new ProductsController(mockService.Object);
             var output = await controller.Delete("id");
             NoContentResult result = output as NoContentResult;
@@ -195,7 +211,7 @@ namespace ManageProduct_Microservice_UnitTest
         public async Task DeleteReturnsInternalError()
         {
             Mock<IProductService> mockService = new Mock<IProductService>();
-            mockService.Setup(s => s.GetByIdAsync(It.IsAny<string>())).ThrowsAsync(new Exception());
+            mockService.Setup(s => s.GetByNameAsync(It.IsAny<string>())).ThrowsAsync(new Exception());
             controller = new ProductsController(mockService.Object);
             var output = await controller.Delete("id");
             ObjectResult result = output as ObjectResult;

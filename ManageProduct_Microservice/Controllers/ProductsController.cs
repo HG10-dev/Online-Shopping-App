@@ -34,14 +34,14 @@ namespace ManageProduct_Microservice.Controllers
         }
 
         // GET api/<ProductsController>/5
-        [HttpGet("{id}")]
+        [HttpGet("{productName}")]
         [Authorize]
-        public async Task<IActionResult> Get(string id)
+        public async Task<IActionResult> Get(string productName)
         {
-            if (id == null) { return BadRequest(); }
+            if (string.IsNullOrEmpty(productName)) { return BadRequest(); }
             try
             {
-                Product item = await productService.GetByIdAsync(id);
+                Product item = await productService.GetByNameAsync(productName);
                 if (item == null) { return NotFound(); }
                 return Ok(item);
             }
@@ -59,6 +59,8 @@ namespace ManageProduct_Microservice.Controllers
             if (newItem == null) { return BadRequest(); }
             try
             {
+                Product item = await productService.GetByNameAsync(newItem.Name);
+                if (item != null) { return BadRequest($"Product {newItem.Name} already exist"); }
                 await productService.CreateAsync(newItem);
                 return CreatedAtAction(nameof(Get), new {id = newItem.Id}, newItem);
             }
@@ -96,7 +98,7 @@ namespace ManageProduct_Microservice.Controllers
 
             try
             {
-                Product product = await productService.GetByIdAsync(id);
+                Product product = await productService.GetByNameAsync(id);
                 if (product == null) { return NotFound(); }
                 await productService.RemoveAsync(id);
                 return NoContent();

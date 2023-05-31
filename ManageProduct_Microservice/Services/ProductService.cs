@@ -24,9 +24,9 @@ namespace ManageProduct_Microservice.Services
             return allProducts;
         }
 
-        public async Task<Product> GetByIdAsync(string id)
+        public async Task<Product> GetByNameAsync(string name)
         {
-            Product item = await products.Find(p => p.Id.Equals(id)).FirstOrDefaultAsync();
+            Product item = await products.Find(p => p.Name.Equals(name)).FirstOrDefaultAsync();
             return item;
         }
 
