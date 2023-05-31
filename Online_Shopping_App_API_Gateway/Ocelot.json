@@ -1,0 +1,137 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/Authenticate",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7105"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1.0/shopping/login",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      //For the experiment action method
+      "DownstreamPathTemplate": "/api/Authenticate/Post",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7105"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1.0/shopping/post",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Registration",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7105"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1.0/shopping/register",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/ForgetPass/{customername}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7105"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1.0/shopping/{customername}/forgot",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/ForgetPass/{customername}/{dob}/{phone}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7105"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1.0/shopping/{customername}/forgot/{dob}/{phone}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/ForgetPass",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7105"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1.0/shopping/{customername}/forgot",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Products",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7264"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1.0/shopping/all",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Products/{productname}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7264"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1.0/shopping/products/search/{productname}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Products",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7264"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1.0/shopping/{productname}/add",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Products/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7264"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1.0/shopping/{productname}/update/{id}",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Products/{id}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "7264"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/v1.0/shopping/{productname}/delete/{id}",
+      "UpstreamHttpMethod": [ "DELETE" ]
+    }
+  ]
+}
