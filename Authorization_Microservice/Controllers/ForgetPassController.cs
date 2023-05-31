@@ -23,7 +23,8 @@ namespace Authorization_Microservice.Controllers
         //}
 
         [HttpGet("{email}")]
-        public async Task<ActionResult<string>> Get(string email)
+        //To Validate Email 
+        public async Task<IActionResult> Get(string email)
         {
             try
             {
@@ -41,14 +42,14 @@ namespace Authorization_Microservice.Controllers
         }
 
         [HttpGet("{email}/{dob}/{phone}")]
-        public async Task<ActionResult<string>> Get([FromQuery] string email, string dob, string phone)
+        public async Task<IActionResult> Get(string email, string dob, string phone)
         {
             try
             {
                 if (email == null || dob == null || phone == null) { return BadRequest("!Invalidinput."); }
                 if (await userService.IfExistAlready(email, dob, phone))
                 {
-                    return Ok($"{email} is verified");
+                    return Ok($"Input data for {email} is verified");
                 }
                 return NotFound("!Check Phone and DOB again");
             }
@@ -65,7 +66,7 @@ namespace Authorization_Microservice.Controllers
             {
                 if (credentials == null) { return BadRequest("null"); }
 
-                User temp = await userService.IfExistAlready(credentials);
+                User? temp = await userService.IfExistAlready(credentials);
                 if (temp == null)
                 { return NotFound("!Failed to update"); }
 

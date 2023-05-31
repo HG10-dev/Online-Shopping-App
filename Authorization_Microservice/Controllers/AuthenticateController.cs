@@ -31,7 +31,7 @@ namespace Authorization_Microservice.Controllers
 
             IActionResult response = Unauthorized();
 
-            AuthCredentials user = await authService.GetAuthCredentialsAsync(login.Username, login.Password);
+            AuthCredentials? user = await authService.GetAuthCredentialsAsync(login.Username, login.Password);
 
             if (user != null)
             {
@@ -51,6 +51,8 @@ namespace Authorization_Microservice.Controllers
 
         [Authorize(Roles = "Admin")]
         [Route("Post")]
+
+        //For experiment purpose only :)
         public async Task<IActionResult> Post([FromBody] AuthCredentials login)
         {
             try

@@ -31,7 +31,7 @@ namespace Authorization_Microservice.Controllers
                     return BadRequest($"User with email_id {newUser.Email} already exist");
                 }
                 await userService.CreateAsync(newUser);
-                return StatusCode(201);
+                return StatusCode(201, "Resource Created");
             }
             catch (Exception ex)
             {
