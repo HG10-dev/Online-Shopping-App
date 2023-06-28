@@ -98,8 +98,8 @@ namespace ManageProduct_Microservice.Controllers
 
             try
             {
-                Product product = await productService.GetByNameAsync(id);
-                if (product == null) { return NotFound(); }
+                Product product = await productService.GetByIdAsync(id);
+                if (product == null) { return NotFound("Product not found"); }
                 await productService.RemoveAsync(id);
                 return NoContent();
             }
