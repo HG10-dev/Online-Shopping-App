@@ -3,11 +3,13 @@ using Authorization_Microservice.Repositories;
 using Authorization_Microservice.Services;
 using DnsClient;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Authorization_Microservice.Controllers
 {
+    [EnableCors("myCorsPolicy")]
     [Route("api/[controller]/")]
     [ApiController]
     public class AuthenticateController : ControllerBase
@@ -38,7 +40,13 @@ namespace Authorization_Microservice.Controllers
                 try
                 {
                     string token = authRepo.GenerateJWT(user);
-                    return Ok(token);
+                    var userData = new List<string>
+                    {
+                        token,
+                        user.Name,
+                        user.IsAdmin ? "ADMIN" : "CUSTOMER"
+                    };
+                    return Ok(userData);
                 }
                 catch (Exception ex)
                 {

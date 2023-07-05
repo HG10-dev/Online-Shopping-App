@@ -29,6 +29,12 @@ namespace ManageProduct_Microservice.Services
             Product item = await products.Find(p => p.Name.Equals(name)).FirstOrDefaultAsync();
             return item;
         }
+        
+        public async Task<Product> GetByIdAsync(string id)
+        {
+            Product item = await products.Find(p => p.Id.Equals(id)).FirstOrDefaultAsync();
+            return item;
+        }
 
         public async Task RemoveAsync(string id)
         {

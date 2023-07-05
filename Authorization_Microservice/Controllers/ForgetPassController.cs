@@ -1,10 +1,12 @@
 ﻿using Authorization_Microservice.Models;
 using Authorization_Microservice.Services;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Authorization_Microservice.Controllers
 {
+    [EnableCors("myCorsPolicy")]
     [Route("api/[controller]")]
     [ApiController]
     public class ForgetPassController : ControllerBase
@@ -33,7 +35,7 @@ namespace Authorization_Microservice.Controllers
                 {
                     return Ok(email);
                 }
-                else { return NotFound(); }
+                else { return NotFound(email); }
             }
             catch (Exception ex)
             {
@@ -68,7 +70,7 @@ namespace Authorization_Microservice.Controllers
 
                 User? temp = await userService.IfExistAlready(credentials);
                 if (temp == null)
-                { return NotFound("!Failed to update"); }
+                { return NotFound(credentials.Username); }
 
                 temp.Password = credentials.Password;
                 await userService.UpdateAsync(temp);
