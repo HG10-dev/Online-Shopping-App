@@ -1,1 +1,1 @@
-If not found Add relevant packages specified in the respective Readme.txt in all the projects(subfolders)
+If not found Add relevant packages specified in the respective Readme.txt in all the projects(subfolders) or refer to .csproj files for backend
