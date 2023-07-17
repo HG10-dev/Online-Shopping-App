@@ -13,14 +13,14 @@ const product = (props) => {
               <div className="col-xl-6 col-md-5 col-sm-7">
                 <h5>{item.name}</h5>
                 <div className="d-flex flex-row">
-                  <strong>Category : </strong>{item.category}
+                  <strong>Category : </strong> {item.category}
                 </div>
                 <div className="d-flex flex-row">
-                  <strong>Quantity : </strong>{item.quantity}
+                  <strong>Quantity : </strong> {item.quantity>0?item.quantity:"OUT OF STOCK"}
                 </div>
 
                 <p className="text mb-4 mb-md-0">
-                  <strong>Description : </strong>{item.description}
+                  <strong>Description : </strong> {item.description}
                 </p>
                 <div className="d-flex flex-row align-items-center mb-1">
                   <h4 className="mb-1 me-1">Rs {parseFloat(item.price).toFixed(2)} </h4>

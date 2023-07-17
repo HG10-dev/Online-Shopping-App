@@ -18,8 +18,9 @@ const product = (props) => {
                   </div>
                   <div className="col-xl-6 col-md-5 col-sm-7">
                     <h5>{props.name}</h5>
+                    {/* <h5>Status</h5> */}
                     <div className="d-flex flex-row">                      
-                      <span className="text-muted">{props.available? "Available":"Unavailable"}</span>
+                      <strong>Status : </strong><span className="text-muted">{props.available? "HURRY UP TO PURCHASE":"OUT OF STOCK"}</span>
                     </div>
 
                     <p className="text mb-4 mb-md-0">
@@ -34,7 +35,7 @@ const product = (props) => {
                     <h6 className="text-success">Free shipping</h6>
                     <div className="mt-4">
                       <button className="btn btn-primary shadow-0" type="button">Buy this</button>
-                      <a href="#!" className="btn btn-light border px-2 pt-2 icon-hover"><i className="fas fa-heart fa-lg px-1"></i></a>
+                      {/* <a href="#!" className="btn btn-light border px-2 pt-2 icon-hover"><i className="fas fa-heart fa-lg px-1"></i></a> */}
                     </div>
                   </div>
                 </div>
