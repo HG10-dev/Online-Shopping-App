@@ -113,8 +113,7 @@ const EditItem = () => {
                     await axios.put(
                         data.name + "/update/" + data.id, data, {
                         headers: {
-                            Authorization: "Bearer " + login.token,
-                            "Access-Control-Allow-Origin": "true",
+                            Authorization: "Bearer " + login.token
                         },
                     }).then(res => {
                         console.log(res);

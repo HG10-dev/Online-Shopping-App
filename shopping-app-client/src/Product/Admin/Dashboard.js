@@ -31,8 +31,7 @@ const Dashboard = () => {
                 await axios.delete(
                     data.name + "/delete/" + data.id, {
                     headers: {
-                        Authorization: "Bearer " + login.token,
-                        "Access-Control-Allow-Origin": "true",
+                        Authorization: "Bearer " + login.token
                     },
                 }).then(res => {
                     console.log(res);

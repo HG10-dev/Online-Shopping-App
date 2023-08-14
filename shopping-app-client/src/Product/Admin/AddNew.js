@@ -110,8 +110,7 @@ const AddNew = () => {
                     await axios.post(
                         data.name + "/add", data, {
                         headers: {
-                            Authorization: "Bearer " + login.token,
-                            "Access-Control-Allow-Origin": "true",
+                            Authorization: "Bearer " + login.token
                         },
                     }).then(res => {
                         console.log(res);

@@ -36,7 +36,7 @@ const Login = () => {
             }
             try {
                 await axios.post(
-                    "/login",
+                    "login",
                     data
 
                 ).then( (res) => {

@@ -39,7 +39,6 @@ const AdminPortal = () => {
                 await axios.get(
                     "/all", {
                     headers: {
-                        "Access-Control-Allow-Origin": "true",
                         Authorization: "Bearer " + login.token
                     }
                 }

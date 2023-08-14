@@ -51,11 +51,7 @@ const ForgotPass = () => {
         let resultStatus;
         try {
             await axios.get(
-                "https://localhost:7105/api/ForgetPass/" + formValues.email.toString(), {
-                headers: {
-                    "Access-Control-Allow-Origin": "true",
-                },
-            }
+                formValues.email.toString() + "/forgot"
             ).then((response) => {
                 console.log(response.data === formValues.email ? formValues.email : "!Problem");
                 console.log(response);
@@ -117,11 +113,8 @@ const ForgotPass = () => {
         let result;
         try {
             result = await axios.put(
-                "https://localhost:7105/api/ForgetPass", data, {
-                headers: {
-                    "Access-Control-Allow-Origin": "true",
-                },
-            }).then((res) => {
+                data.username + "/forgot", data)
+                .then((res) => {
                 console.log(res);
                 return res.status;
             });

@@ -6,7 +6,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import UserContext from '../../ContextData/User/UserContext';
 import axios from '../../Axios';
-import newAxios from 'axios';
+//import newAxios from 'axios';
 import product from "./Product";
 import { Container } from "react-bootstrap";
 
@@ -35,7 +35,6 @@ const CustomerDashboard = () => {
         await axios.get(
           "/all", {
           headers: {
-            "Access-Control-Allow-Origin": "true",
             Authorization: "Bearer " + login.token
           }
         }

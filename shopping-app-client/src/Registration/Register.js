@@ -90,7 +90,7 @@ const Register = () => {
             console.log(data);
             try {
                 await axios.post(
-                    "https://localhost:7105/api/Registration",
+                    "register",
                     data
 
                 ).then((res) => {

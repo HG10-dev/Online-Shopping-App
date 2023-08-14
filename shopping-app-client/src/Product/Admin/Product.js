@@ -40,7 +40,7 @@ const product = (props) => {
               </div>
               <div className="col-xl-3 col-md-4 d-flex justify-content-center">
                 <div className="bg-image hover-zoom ripple rounded ripple-surface me-md-3 mb-3 mb-md-0">
-                  <img src={pic} className="w-100" />
+                  <img src={pic} alt="Product Img" className="w-100" />
                   <a href="#!">
                     <div className="hover-overlay">
                       <div className="mask" style={{ backgroundColor: "rgba(253, 253, 253, 0.15)" }}></div>
