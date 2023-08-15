@@ -79,6 +79,7 @@ const AddNew = () => {
 
     const updateProducts = (obj) => {
         // const newArr = products.filter(p => p.id !== obj.id);
+        console.log("Updating products list with: ",obj);
         setProducts([{ ...obj }, ...products]);
         console.log("Added successfully");
         alert("Product " + obj.name + " added successfully");
@@ -114,7 +115,7 @@ const AddNew = () => {
                         },
                     }).then(res => {
                         console.log(res);
-                        updateProducts(data);
+                        updateProducts(res.data);
                     })
                 }
 
